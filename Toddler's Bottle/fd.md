@@ -1,11 +1,36 @@
 # fd
 
-连接服务器后，使用```ls -l```命令查看目录下文件和子目录的详细信息<br>
+After connecting with the server, we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
 ```
 -r-sr-x--- 1 fd_pwn fd   7322 Jun 11  2014 fd
 -rw-r--r-- 1 root   root  418 Jun 11  2014 fd.c
 -r--r----- 1 fd_pwn root   50 Jun 11  2014 flag
 ```
-当前目录只有三个文件，其中```fd```可读可执行，```fd.c```可读可写，```flag```仅可读。<br><br>
+In the current directory, there are three files, where ```fd``` is readable and executable, ```fd.c``` is readable and writable, and ```flag``` is readable only. <br><br>
 
-直接执行```fd```，显示```pass argv[1] a number```，即需要传入一个数字作为第二个参数。随意传入一个整数，执行结果为```learn about Linux file IO```
+After executing executable file ```fd```, it shows ```pass argv[1] a number```, which means to pass a number as the second parameter. If we pass a random integer, the result will be ```learn about Linux file IO``` <br>
+
+Then we should view the code in ```fd.c```<br>
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+char buf[32];
+int main(int argc, char* argv[], char* envp[]){
+	if(argc<2){
+		printf("pass argv[1] a number\n");
+		return 0;
+	}
+	int fd = atoi( argv[1] ) - 0x1234;
+	int len = 0;
+	len = read(fd, buf, 32);
+	if(!strcmp("LETMEWIN\n", buf)){
+		printf("good job :)\n");
+		system("/bin/cat flag");
+		exit(0);
+	}
+	printf("learn about Linux file IO\n");
+	return 0;
+
+}
+```
