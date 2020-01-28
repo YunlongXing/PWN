@@ -2,7 +2,7 @@
 
 ## First Attempting
 After connecting with the server, first, we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
-```
+```c
 -r-sr-x--- 1 fd_pwn fd   7322 Jun 11  2014 fd
 -rw-r--r-- 1 root   root  418 Jun 11  2014 fd.c
 -r--r----- 1 fd_pwn root   50 Jun 11  2014 flag
