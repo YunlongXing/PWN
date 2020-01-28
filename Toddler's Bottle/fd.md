@@ -36,7 +36,7 @@ int main(int argc, char* argv[], char* envp[]){
 
 }
 ```
-In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number as the second parameter, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches and the condition statement in the second branch will be the keypoint.<br>
+In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number to ```argv[1]```, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches and the condition statement in the second branch will be the keypoint.<br>
 ```c
 int fd = atoi( argv[1] ) - 0x1234;
 int len = 0;
@@ -44,6 +44,6 @@ len = read(fd, buf, 32);
 if(!strcmp("LETMEWIN\n", buf))
 	...
 ```
-The function ```atoi``` converts the string, the second parameter, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
+The function ```atoi``` converts the string, ```argv[1]```, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
 
 The description of ```read``` in man page says that
