@@ -42,8 +42,8 @@ int fd = atoi( argv[1] ) - 0x1234;
 int len = 0;
 len = read(fd, buf, 32);
 if(!strcmp("LETMEWIN\n", buf))
-    ...
+	...
 ```
-First, the function ```atoi``` converts the string, the second parameter, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
+The function ```atoi``` converts the string, the second parameter, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
 
 The description of ```read``` in man page says that
