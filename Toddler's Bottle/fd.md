@@ -9,7 +9,7 @@ After connecting with the server, first, we can use the command ```ls -l``` to l
 ```
 In the current directory, there are three files, where ```fd``` is readable and executable, ```fd.c``` is readable and writable, and ```flag``` is readable only. <br>
 
-Then we execute the executable file ```fd```. It shows ```pass argv[1] a number```, which means to pass a number as the second parameter. If we pass a random integer, the result will be ```learn about Linux file IO```. <br>
+Then we execute the executable file ```fd```. It shows ```pass argv[1] a number```, which means to pass a number to the second parameter, ```argv[1]```. If we pass a random integer, the result will be ```learn about Linux file IO```. <br>
 
 ## Further Analyzing
 For further analysis, we view the source code in ```fd.c```<br>
