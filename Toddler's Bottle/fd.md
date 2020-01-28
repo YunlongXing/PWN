@@ -1,7 +1,7 @@
 # fd
 
-## Viewing and Attampting
-After connecting with the server, first we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
+## First Attampting
+After connecting with the server, first, we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
 ```
 -r-sr-x--- 1 fd_pwn fd   7322 Jun 11  2014 fd
 -rw-r--r-- 1 root   root  418 Jun 11  2014 fd.c
@@ -11,7 +11,7 @@ In the current directory, there are three files, where ```fd``` is readable and 
 
 Then we execute the executable file ```fd```. It shows ```pass argv[1] a number```, which means to pass a number as the second parameter. If we pass a random integer, the result will be ```learn about Linux file IO```. <br>
 
-## Analysing
+## Further Analyzing
 For further analysis, we view the source code in ```fd.c```<br>
 ```c
 #include <stdio.h>
@@ -36,12 +36,13 @@ int main(int argc, char* argv[], char* envp[]){
 
 }
 ```
-In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number as the second parameter, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches will be the keypoint.<br>
-
+In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number as the second parameter, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches and the condition statement in the second branch will be the keypoint.<br>
 ```c
 int fd = atoi( argv[1] ) - 0x1234;
 int len = 0;
 len = read(fd, buf, 32);
+if(!strcmp("LETMEWIN\n", buf))
+    ...
 ```
 First, the function ```atoi``` converts the string, the second parameter, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
 
