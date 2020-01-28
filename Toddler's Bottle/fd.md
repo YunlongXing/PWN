@@ -38,3 +38,8 @@ int main(int argc, char* argv[], char* envp[]){
 ```
 In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number as the second parameter, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches will be the keypoint.<br>
 
+```c
+int fd = atoi( argv[1] ) - 0x1234;
+int len = 0;
+len = read(fd, buf, 32);
+```
