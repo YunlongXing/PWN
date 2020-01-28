@@ -43,3 +43,6 @@ int fd = atoi( argv[1] ) - 0x1234;
 int len = 0;
 len = read(fd, buf, 32);
 ```
+First, the function ```atoi``` converts the string, the second parameter, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` will be the first parameter of function ```read```.<br>
+
+
