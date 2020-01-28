@@ -1,16 +1,18 @@
 # fd
 
-After connecting with the server, we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
+## Viewing and Attampting
+After connecting with the server, first we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
 ```
 -r-sr-x--- 1 fd_pwn fd   7322 Jun 11  2014 fd
 -rw-r--r-- 1 root   root  418 Jun 11  2014 fd.c
 -r--r----- 1 fd_pwn root   50 Jun 11  2014 flag
 ```
-In the current directory, there are three files, where ```fd``` is readable and executable, ```fd.c``` is readable and writable, and ```flag``` is readable only. <br><br>
+In the current directory, there are three files, where ```fd``` is readable and executable, ```fd.c``` is readable and writable, and ```flag``` is readable only. <br>
 
-After executing executable file ```fd```, it shows ```pass argv[1] a number```, which means to pass a number as the second parameter. If we pass a random integer, the result will be ```learn about Linux file IO``` <br>
+Then we execute the executable file ```fd```. It shows ```pass argv[1] a number```, which means to pass a number as the second parameter. If we pass a random integer, the result will be ```learn about Linux file IO```. <br>
 
-Then we should view the code in ```fd.c```<br>
+## Analysing
+For further analysis, we view the source code in ```fd.c```<br>
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,3 +36,5 @@ int main(int argc, char* argv[], char* envp[]){
 
 }
 ```
+In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number as the second parameter, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches will be the keypoint.<br>
+
