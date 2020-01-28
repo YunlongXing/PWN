@@ -1,6 +1,6 @@
 # fd
 
-## First Attampting
+## First Attempting
 After connecting with the server, first, we can use the command ```ls -l``` to list all files, subdirectories, and their detailed information.<br>
 ```
 -r-sr-x--- 1 fd_pwn fd   7322 Jun 11  2014 fd
