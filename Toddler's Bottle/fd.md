@@ -9,10 +9,10 @@ After connecting with the server, first, we can use the command ```ls -l``` to l
 ```
 In the current directory, there are three files, where ```fd``` is readable and executable, ```fd.c``` is readable and writable, and ```flag``` is readable only. <br>
 
-Then we execute the executable file ```fd```. It shows ```pass argv[1] a number```, which means to pass a number to the second parameter, ```argv[1]```. If we pass a random integer, the result will be ```learn about Linux file IO```. <br>
+Then we execute the executable file ```fd```. It shows ```pass argv[1] a number```, which means to pass a number as the second parameter, ```argv[1]```. If we pass a random integer, the result will be ```learn about Linux file IO```. <br>
 
 ## Further Analyzing
-For further analysis, we view the source code in ```fd.c```<br>
+For further analysis, we analyze the source code in ```fd.c```<br>
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,7 +36,7 @@ int main(int argc, char* argv[], char* envp[]){
 
 }
 ```
-In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number to ```argv[1]```, and the second branch executes the ```system``` function to catch the flag. So the statements between these two branches and the condition statement in the second branch will be the keypoint.<br>
+In the code, there are only one function ```main```, and inside the function, there are two branches. The first one says to pass a number to ```argv[1]```, and the second branch executes the ```system``` function to catch the flag. Thus the statements between these two branches and the condition statement in the second branch will be the keypoint.<br>
 ```c
 int fd = atoi( argv[1] ) - 0x1234;
 int len = 0;
@@ -44,6 +44,17 @@ len = read(fd, buf, 32);
 if(!strcmp("LETMEWIN\n", buf))
 	...
 ```
-The function ```atoi``` converts the string, ```argv[1]```, to an integer, and the value of ```fd``` will be the integer minus 0x1234 (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
+For these piece of codes above, the function ```atoi``` converts the string, ```argv[1]```, to an integer. And the value of ```fd``` is equal to the integer minus ```0x1234``` (4660). Then ```fd``` is passed as the first parameter of function ```read```.<br>
 
-The description of ```read``` in man page says that
+The description of function ```read``` in man page says that
+
+```c
+ssize_t read(int fildes, void *buf, size_t nbyte);
+The read() function shall attempt to read nbyte bytes from the file associated with the open file descriptor, fildes, into the buffer pointed to by buf.
+```
+
+Also, each process has three standard file descriptors, 0 for standard input, 1 for standard output, and 2 for standard error. So we can make ```fd``` equal to 0 and input some special strings from the console to ```buf```. <br>
+
+The final result will be that we execute ```./fd 4660``` and type ```LETMEWIN``` to catch the flag ```mommy! I think I know what a file descriptor is!!```.<br>
+
+Here is a guess, if we analyze the source code outside the server, we may create a file with the content ```LETMEWIN```, and pass the file description of ```fd``` to catch the flag.
