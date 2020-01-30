@@ -50,6 +50,7 @@ The description of function ```read``` in man page says that
 
 ```c
 ssize_t read(int fildes, void *buf, size_t nbyte);
+
 The read() function shall attempt to read nbyte bytes from the file associated with the open file descriptor, fildes, into the buffer pointed to by buf.
 ```
 
