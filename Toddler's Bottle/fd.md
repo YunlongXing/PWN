@@ -58,4 +58,4 @@ Also, each process has three standard file descriptors, 0 for standard input, 1 
 
 The final result will be that we execute ```./fd 4660``` and type ```LETMEWIN``` to catch the flag ```mommy! I think I know what a file descriptor is!!```.<br>
 
-Here is a guess, if we analyze the source code outside the server, we may create a file with the content ```LETMEWIN```, and pass the file description of ```fd``` to catch the flag.
+Here is a guess, if we analyze the source code outside the server, we may create a file with the content ```LETMEWIN```, and pass the file description of this file to ```fd``` to catch the flag.
